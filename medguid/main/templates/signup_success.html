@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sign Up Successful</title>
+    <script>
+        window.onload = function() {
+            alert("Your User ID is: {{ user_id }}\nPlease memorize or save this User ID for future logins.");
+        }
+    </script>
+</head>
+<body>
+    <h2>Sign Up Successful!</h2>
+    <p>Your User ID is: <strong>{{ user_id }}</strong></p>
+    <p>Please memorize or save this User ID for future logins.</p>
+    <a href="{% url 'index' %}">Go to Home</a>
+</body>
+</html>

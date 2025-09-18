@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sign Up - Medibook</title>
+    <script>
+        function showFields() {
+            var userType = document.getElementById('user_type').value;
+            document.getElementById('patient_fields').style.display = userType === 'patient' ? 'block' : 'none';
+            document.getElementById('doctor_fields').style.display = userType === 'doctor' ? 'block' : 'none';
+            document.getElementById('admin_fields').style.display = userType === 'admin' ? 'block' : 'none';
+        }
+    </script>
+</head>
+<body>
+    <h2>Sign Up</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="user_type">I am a:</label>
+        <select id="user_type" name="user_type" onchange="showFields()" required>
+            <option value="">Select</option>
+            <option value="patient">Patient</option>
+            <option value="doctor">Doctor</option>
+            <option value="admin">Admin</option>
+        </select>
+        <br><br>
+
+        <div id="patient_fields" style="display:none;">
+            <label for="username_p">Username:</label>
+            <input type="text" id="username_p" name="username"><br><br>
+            <label for="phone_p">Phone Number:</label>
+            <input type="text" id="phone_p" name="phone"><br><br>
+            <label for="email_p">Email:</label>
+            <input type="email" id="email_p" name="email"><br><br>
+            <label for="address_p">Address:</label>
+            <input type="text" id="address_p" name="address"><br><br>
+        </div>
+
+        <div id="doctor_fields" style="display:none;">
+            <label for="username_d">Username:</label>
+            <input type="text" id="username_d" name="username"><br><br>
+            <label for="phone_d">Phone Number:</label>
+            <input type="text" id="phone_d" name="phone"><br><br>
+            <label for="email_d">Email:</label>
+            <input type="email" id="email_d" name="email"><br><br>
+            <label for="address_d">Address:</label>
+            <input type="text" id="address_d" name="address"><br><br>
+            <label for="qualification">Qualification:</label>
+            <input type="text" id="qualification" name="qualification"><br><br>
+            <label for="specialization">Specialization:</label>
+            <input type="text" id="specialization" name="specialization"><br><br>
+            <label for="fees">Consultation Fees:</label>
+            <input type="number" id="fees" name="fees"><br><br>
+            <label for="photo">Photo:</label>
+            <input type="file" id="photo" name="photo" accept="image/*"><br><br>
+        </div>
+
+        <div id="admin_fields" style="display:none;">
+            <p>Admin sign up coming soon.</p>
+        </div>
+
+        <button type="submit">Sign Up</button>
+    </form>
+    <script>
+        function showFields() {
+            var userType = document.getElementById('user_type').value;
+            var patientFields = document.getElementById('patient_fields').querySelectorAll('input');
+            var doctorFields = document.getElementById('doctor_fields').querySelectorAll('input');
+            if (userType === 'patient') {
+                document.getElementById('patient_fields').style.display = 'block';
+                document.getElementById('doctor_fields').style.display = 'none';
+                patientFields.forEach(f => f.disabled = false);
+                doctorFields.forEach(f => f.disabled = true);
+            } else if (userType === 'doctor') {
+                document.getElementById('patient_fields').style.display = 'none';
+                document.getElementById('doctor_fields').style.display = 'block';
+                patientFields.forEach(f => f.disabled = true);
+                doctorFields.forEach(f => f.disabled = false);
+            } else {
+                document.getElementById('patient_fields').style.display = 'none';
+                document.getElementById('doctor_fields').style.display = 'none';
+                patientFields.forEach(f => f.disabled = true);
+                doctorFields.forEach(f => f.disabled = true);
+            }
+        }
+        document.addEventListener('DOMContentLoaded', showFields);
+    </script>
+</body>
+</html>
